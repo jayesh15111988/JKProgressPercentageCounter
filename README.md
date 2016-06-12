@@ -51,18 +51,18 @@ __Convenience Initializer__
 
 ###Customizable paramters and default values
 
-* titleDirection - Specifies where the percentage title label lies with respect to progress indicator view. Default to top position
-* currentValue - Value to show on completion label. Percentage is calculated from maximum value
-* maximumValue - Maximum value for given calculation. Used to calculate and display percentage on counter label
-* progressIndicatorShape - The shape of progress indicator at the end. Default to Circle
-* progressIndicatorHeight - Height of progress indicator completion view. Defaults to 20
-* progressIndicatorBorderColor - Border color for progress indicator. Defaults to `lightGrayColor`
-* progressIndicatorBorderWidth - Border width of progress indicator. Defaults to 0.5
-* originalLabelValue - This is the original label value. This is string representation of percentages calculated out of currentValue and maximumValue as supplied by user
-* updatedLabelValue - Sometimes user might want to apply formatting to originalLabelValue. This property could be used to update it
+* `titleDirection` - Specifies where the percentage title label lies with respect to progress indicator view. Default to top position
+* `currentValue` - Value to show on completion label. Percentage is calculated from maximum value
+* `maximumValue` - Maximum value for given calculation. Used to calculate and display percentage on counter label
+* `progressIndicatorShape` - The shape of progress indicator at the end. Default to Circle
+* `progressIndicatorHeight` - Height of progress indicator completion view. Defaults to 20
+* `progressIndicatorBorderColor` - Border color for progress indicator. Defaults to `lightGrayColor`
+* `progressIndicatorBorderWidth` - Border width of progress indicator. Defaults to 0.5
+* `originalLabelValue` - This is the original label value. This is string representation of percentages calculated out of currentValue and maximumValue as supplied by user
+* `updatedLabelValue` - Sometimes user might want to apply formatting to originalLabelValue. This property could be used to update it
 
    For example, if not using animation - 
-   progressIndicatorView.updatedLabelValue = "\(progressIndicatorView.originalLabelValue) out of 1000"
+   `progressIndicatorView.updatedLabelValue = "\(progressIndicatorView.originalLabelValue) out of 1000"`
    
    if using animation this values could be specified in the `labelFormatterClosure` passed while creating animation block as follows
    ```
@@ -71,7 +71,7 @@ individualView.showLabelWithDuration(<animation_duration>, labelFormatterClosure
                 }, completionClosure: {
                     print("Completed Animation")
             })
-``` 
+   ``` 
   
 * showLegendView - Legend is a small view attached at the end of progress indicator view. This property can be used to turn it
 on or off. Defaults to `false`
@@ -87,9 +87,9 @@ on or off. Defaults to `false`
    This closure gets called as soon as the progress percentage counter label animation is finished.
 * animationDuration - This is the animation duration for both progress indicator and label values counter.
 
-_You can include this amazing library in your iOS project by including following line in the podfile_ <br/>
+_You can include this library in your iOS project by adding following line to the podfile_ <br/>
  `pod 'JKProgressPercentageCounter', :git => 'git@github.com:jayesh15111988/JKProgressPercentageCounter.git'` and running `pod update` thereafter
 
 
-> For convenience, I have added a demo to this project. You can get hang of extra parameters and other ways to customize the appearance of animating percentage
+> For convenience, I have added a demo along with this library. You can get hang of extra parameters and other ways to customize the appearance of animating percentage
 labels. I have tried to add demo for every possible major scenario. Let me know if something is missing or needs more clarification or attention
