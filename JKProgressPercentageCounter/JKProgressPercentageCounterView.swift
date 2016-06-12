@@ -17,6 +17,7 @@ class JKProgressPercentageCounterView: UIView {
     var progressIndicatorForegroundViewWidthConstraint: NSLayoutConstraint
     let progressIndicatorHeight: CGFloat
     var percentageCounterLabel: UILabel
+    var fractionValue: Float
     
     var originalLabelValue: String
     
@@ -77,7 +78,7 @@ class JKProgressPercentageCounterView: UIView {
     
     init(frame: CGRect, currentValue: Int, maximumValue: Int, titleDirection: TitleDirection, progressIndicatorHeight: CGFloat) {
         
-        let fractionValue = Float(currentValue)/Float(maximumValue)
+        fractionValue = Float(currentValue)/Float(maximumValue)
         let fractionInPercentage = String(format: "%d%%", Int(fractionValue * 100.0))
         
         self.titleDirection = titleDirection
@@ -171,7 +172,28 @@ class JKProgressPercentageCounterView: UIView {
     }
     
     func showLabelWithDurtion(animationDuration: NSTimeInterval, labelFormatterClosure: ((String) -> ())?) {
-    
+        
+        self.removeConstraint(self.progressIndicatorForegroundViewWidthConstraint)
+        self.layoutIfNeeded()
+        
+        self.progressIndicatorForegroundViewWidthConstraint = NSLayoutConstraint(item: progressIndicatorForegroundView, attribute: .Width, relatedBy: .Equal, toItem: progressIndicatorBackgroundView, attribute: .Width, multiplier: CGFloat(fractionValue), constant: 1.0)
+        self.addConstraint(self.progressIndicatorForegroundViewWidthConstraint)
+        
+        UIView.animateWithDuration(animationDuration, delay: 0.0, options: .CurveEaseInOut, animations: { 
+            self.layoutIfNeeded()
+            }, completion: nil)
+        
+        let delay = (animationDuration/NSTimeInterval(self.currentValue + 1)) * 1000000
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)) {
+            for i in 0...self.currentValue {
+                usleep(UInt32(delay))
+                dispatch_async(dispatch_get_main_queue(), {
+                    let labelValue = "\(String(i))%"
+                    self.percentageCounterLabel.text = labelValue
+                    labelFormatterClosure?(labelValue)
+                });
+            }
+        };
         
     }
     
