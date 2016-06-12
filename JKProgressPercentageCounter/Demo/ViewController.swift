@@ -36,7 +36,7 @@ class ViewController: UIViewController {
         
         for (index, individualView) in viewsCollection.enumerate() {
             individualView.showLegendView = index % 2 == 0
-            individualView.showLabelWithDuration(NSTimeInterval(index + 1), labelFormatterClosure: {[weak individualView] labelValueInt, labelValueString in
+            individualView.showLabelWithDuration(NSTimeInterval(index + 2), labelFormatterClosure: {[weak individualView] labelValueInt, labelValueString in
                 individualView!.updatedLabelValue = "\(labelValueString)%"
                 }, completionClosure: {
                     print("Completed Animation")
