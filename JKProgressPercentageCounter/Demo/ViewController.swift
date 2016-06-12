@@ -35,8 +35,8 @@ class ViewController: UIViewController {
         }
         
         for (index, individualView) in viewsCollection.enumerate() {
-            individualView.showLabelWithDuration(NSTimeInterval(index + 1), labelFormatterClosure: {[weak individualView] labelValue in
-                individualView!.updatedLabelValue = "\(labelValue)%"
+            individualView.showLabelWithDuration(NSTimeInterval(index + 1), labelFormatterClosure: {[weak individualView] labelValueInt, labelValueString in
+                individualView!.updatedLabelValue = "\(labelValueString)%"
                 }, completionClosure: {
                     print("Completed Animation")
             })
@@ -49,7 +49,6 @@ class ViewController: UIViewController {
         progressIndicatorView.progressIndicatorShape = shape
         progressIndicatorView.updatedLabelValue = "\(progressIndicatorView.originalLabelValue)%"
         progressIndicatorView.progressIndicatorBackgroundColor = bgColor
-        //progressIndicatorView.progressIndicatorBorderColor = UIColor.lightGrayColor()
         progressIndicatorView.layer.borderColor = UIColor.blackColor().CGColor
         progressIndicatorView.layer.borderWidth = 1.0
         self.view.addSubview(progressIndicatorView)

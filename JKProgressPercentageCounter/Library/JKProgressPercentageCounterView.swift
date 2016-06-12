@@ -176,7 +176,7 @@ class JKProgressPercentageCounterView: UIView {
         return String(format: "%d", Int(fractionValue * 100.0))
     }
     
-    func showLabelWithDuration(animationDuration: NSTimeInterval, labelFormatterClosure: ((String) -> ())?, completionClosure: (() -> Void)?) {
+    func showLabelWithDuration(animationDuration: NSTimeInterval, labelFormatterClosure: ((Int, String) -> ())?, completionClosure: (() -> Void)?) {
         
         self.removeConstraint(self.progressIndicatorForegroundViewWidthConstraint)
         self.layoutIfNeeded()
@@ -195,7 +195,9 @@ class JKProgressPercentageCounterView: UIView {
                 dispatch_async(dispatch_get_main_queue(), {
                     let labelValue = self.fractionStringFromCurrentValue(i)
                     self.percentageCounterLabel.text = labelValue
-                    labelFormatterClosure?(labelValue)
+                    if let labelIntValue = Int(labelValue) {
+                        labelFormatterClosure?(labelIntValue, labelValue)
+                    }
                 });
             }
             completionClosure?()
