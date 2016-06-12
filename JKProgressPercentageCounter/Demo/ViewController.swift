@@ -12,23 +12,48 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let progressIndicatorView = JKProgressPercentageCounterView(frame: CGRectZero, currentValue: 75, maximumValue: 100, titleDirection: .Top, progressIndicatorHeight: 20)
+        
+        self.title = "Progress Indicator Demo"
+        let progressIndicatorView1 = self.progressIndicatorViewWithCurrentValue(75, maximumValue: 100, titleDirection: .Top, shape: .Circle, bgColor: UIColor.redColor())
+        let progressIndicatorView2 = self.progressIndicatorViewWithCurrentValue(175, maximumValue: 200, titleDirection: .Left, shape: .Flat, bgColor: UIColor.blueColor())
+        let progressIndicatorView3 = self.progressIndicatorViewWithCurrentValue(1175, maximumValue: 1500, titleDirection: .Bottom, shape: .Triangle, bgColor: UIColor.orangeColor())
+        let progressIndicatorView4 = self.progressIndicatorViewWithCurrentValue(10, maximumValue: 80, titleDirection: .Right, shape: .Circle, bgColor: UIColor.yellowColor())
+        
+        let viewsCollection = [progressIndicatorView1, progressIndicatorView2, progressIndicatorView3, progressIndicatorView4]
+        var previousView: UIView? = nil
+        let topLayoutGuide = self.topLayoutGuide
+        let metrics = ["viewHeight": 64]
+        
+        for individualView in viewsCollection {
+            if previousView == nil {
+                self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[topLayoutGuide]-[individualView(viewHeight)]", options: NSLayoutFormatOptions(rawValue:0), metrics: metrics, views: ["individualView": individualView, "topLayoutGuide": topLayoutGuide]))
+            } else {
+                self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[previousView]-[individualView(viewHeight)]", options: NSLayoutFormatOptions(rawValue:0), metrics: metrics, views: ["previousView": previousView!, "individualView": individualView]))
+            }
+            self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[individualView]-|", options: NSLayoutFormatOptions(rawValue:0), metrics: nil, views: ["individualView": individualView]))
+            previousView = individualView
+        }
+        
+        for (index, individualView) in viewsCollection.enumerate() {
+            individualView.showLabelWithDuration(NSTimeInterval(index + 1), labelFormatterClosure: {[weak individualView] labelValue in
+                individualView!.updatedLabelValue = "\(labelValue)%"
+                }, completionClosure: {
+                    print("Completed Animation")
+            })
+        }
+    }
+    
+    func progressIndicatorViewWithCurrentValue(currentValue: Int, maximumValue: Int, titleDirection: TitleDirection, shape: ProgressIndicatorShape, bgColor: UIColor) -> JKProgressPercentageCounterView {
+        let progressIndicatorView = JKProgressPercentageCounterView(frame: CGRectZero, currentValue: currentValue, maximumValue: maximumValue, titleDirection: titleDirection, progressIndicatorHeight: 20)
         progressIndicatorView.translatesAutoresizingMaskIntoConstraints = false
-        progressIndicatorView.progressIndicatorShape = ProgressIndicatorShape.Flat
+        progressIndicatorView.progressIndicatorShape = shape
         progressIndicatorView.updatedLabelValue = "\(progressIndicatorView.originalLabelValue)%"
-        progressIndicatorView.progressIndicatorBackgroundColor = UIColor.greenColor()
-        
+        progressIndicatorView.progressIndicatorBackgroundColor = bgColor
+        //progressIndicatorView.progressIndicatorBorderColor = UIColor.lightGrayColor()
+        progressIndicatorView.layer.borderColor = UIColor.blackColor().CGColor
+        progressIndicatorView.layer.borderWidth = 1.0
         self.view.addSubview(progressIndicatorView)
-        let views = ["progressIndicatorView": progressIndicatorView]
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-100-[progressIndicatorView(84)]", options: NSLayoutFormatOptions(rawValue:0), metrics: nil, views: views))
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[progressIndicatorView]-|", options: NSLayoutFormatOptions(rawValue:0), metrics: nil, views: views))
-        
-        progressIndicatorView.showLabelWithDurtion(1.0, labelFormatterClosure: { labelValue in
-            progressIndicatorView.updatedLabelValue = "\(labelValue)%"
-            }, completionClosure: {
-             print("Completed Animation")
-        })
-        
+        return progressIndicatorView
     }
 
 }
