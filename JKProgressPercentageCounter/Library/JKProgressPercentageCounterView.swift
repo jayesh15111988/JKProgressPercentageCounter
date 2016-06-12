@@ -167,6 +167,10 @@ class JKProgressPercentageCounterView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    convenience init(currentValue: Int, maximumValue: Int) {
+        self.init(frame: CGRectZero, currentValue: currentValue, maximumValue: maximumValue, titleDirection: .Top, progressIndicatorHeight: 20)
+    }
+    
     func fractionStringFromCurrentValue(currentValue: Int) -> String {
         let fractionValue = Float(currentValue)/Float(maximumValue)
         return String(format: "%d", Int(fractionValue * 100.0))
