@@ -12,10 +12,11 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let progressIndicatorView = JKProgressPercentageCounterView(frame: CGRectZero, currentValue: 75, maximumValue: 100, titleDirection: .Right, progressIndicatorHeight: 20)
+        let progressIndicatorView = JKProgressPercentageCounterView(frame: CGRectZero, currentValue: 75, maximumValue: 100, titleDirection: .Top, progressIndicatorHeight: 20)
         progressIndicatorView.translatesAutoresizingMaskIntoConstraints = false
         progressIndicatorView.progressIndicatorShape = ProgressIndicatorShape.Circle
-        progressIndicatorView.updatedLabelValue = "\(progressIndicatorView.originalLabelValue)"
+        progressIndicatorView.updatedLabelValue = "\(progressIndicatorView.originalLabelValue)%"
+        progressIndicatorView.progressIndicatorBackgroundColor = UIColor.greenColor()
         
         self.view.addSubview(progressIndicatorView)
         let views = ["progressIndicatorView": progressIndicatorView]
@@ -23,7 +24,7 @@ class ViewController: UIViewController {
         self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[progressIndicatorView]-|", options: NSLayoutFormatOptions(rawValue:0), metrics: nil, views: views))
         
         progressIndicatorView.showLabelWithDurtion(1.0, labelFormatterClosure: { labelValue in
-            progressIndicatorView.updatedLabelValue = "\(labelValue)"
+            progressIndicatorView.updatedLabelValue = "\(labelValue)%"
         })
         
     }

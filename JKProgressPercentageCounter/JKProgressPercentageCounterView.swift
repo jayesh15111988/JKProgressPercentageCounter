@@ -79,7 +79,7 @@ class JKProgressPercentageCounterView: UIView {
     init(frame: CGRect, currentValue: Int, maximumValue: Int, titleDirection: TitleDirection, progressIndicatorHeight: CGFloat) {
         
         fractionValue = Float(currentValue)/Float(maximumValue)
-        let fractionInPercentage = String(format: "%d%%", Int(fractionValue * 100.0))
+        let fractionInPercentage = String(format: "%d", Int(fractionValue * 100.0))
         
         self.titleDirection = titleDirection
         self.currentValue = currentValue
@@ -188,7 +188,7 @@ class JKProgressPercentageCounterView: UIView {
             for i in 0...self.currentValue {
                 usleep(UInt32(delay))
                 dispatch_async(dispatch_get_main_queue(), {
-                    let labelValue = "\(String(i))%"
+                    let labelValue = "\(String(i))"
                     self.percentageCounterLabel.text = labelValue
                     labelFormatterClosure?(labelValue)
                 });
