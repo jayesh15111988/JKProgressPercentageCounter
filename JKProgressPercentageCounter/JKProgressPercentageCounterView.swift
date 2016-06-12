@@ -33,7 +33,7 @@ class JKProgressPercentageCounterView: UIView {
             if (progressIndicatorShape == ProgressIndicatorShape.Circle) {
                 progressIndicatorViewCornerRadius = progressIndicatorHeight/2.0
             } else if (progressIndicatorShape == ProgressIndicatorShape.Triangle) {
-                progressIndicatorViewCornerRadius = progressIndicatorHeight/0.5
+                progressIndicatorViewCornerRadius = progressIndicatorHeight * 2
             }
             progressIndicatorBackgroundView.layer.cornerRadius = progressIndicatorViewCornerRadius
             progressIndicatorForegroundView.layer.cornerRadius = progressIndicatorViewCornerRadius
@@ -172,7 +172,7 @@ class JKProgressPercentageCounterView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func showLabelWithDurtion(animationDuration: NSTimeInterval, labelFormatterClosure: ((String) -> ())?) {
+    func showLabelWithDurtion(animationDuration: NSTimeInterval, labelFormatterClosure: ((String) -> ())?, completionClosure: (() -> Void)?) {
         
         self.removeConstraint(self.progressIndicatorForegroundViewWidthConstraint)
         self.layoutIfNeeded()
@@ -194,6 +194,7 @@ class JKProgressPercentageCounterView: UIView {
                     labelFormatterClosure?(labelValue)
                 });
             }
+            completionClosure?()
         };
         
     }

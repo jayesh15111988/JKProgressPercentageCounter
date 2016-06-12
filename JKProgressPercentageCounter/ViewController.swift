@@ -14,7 +14,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         let progressIndicatorView = JKProgressPercentageCounterView(frame: CGRectZero, currentValue: 75, maximumValue: 100, titleDirection: .Top, progressIndicatorHeight: 20)
         progressIndicatorView.translatesAutoresizingMaskIntoConstraints = false
-        progressIndicatorView.progressIndicatorShape = ProgressIndicatorShape.Circle
+        progressIndicatorView.progressIndicatorShape = ProgressIndicatorShape.Flat
         progressIndicatorView.updatedLabelValue = "\(progressIndicatorView.originalLabelValue)%"
         progressIndicatorView.progressIndicatorBackgroundColor = UIColor.greenColor()
         
@@ -25,6 +25,8 @@ class ViewController: UIViewController {
         
         progressIndicatorView.showLabelWithDurtion(1.0, labelFormatterClosure: { labelValue in
             progressIndicatorView.updatedLabelValue = "\(labelValue)%"
+            }, completionClosure: {
+             print("Completed Animation")
         })
         
     }
