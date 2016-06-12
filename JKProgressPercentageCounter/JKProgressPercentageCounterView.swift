@@ -29,13 +29,14 @@ class JKProgressPercentageCounterView: UIView {
     
     var progressIndicatorShape: ProgressIndicatorShape {
         didSet {
+            var progressIndicatorViewCornerRadius: CGFloat = 0.0
             if (progressIndicatorShape == ProgressIndicatorShape.Circle) {
-                progressIndicatorBackgroundView.layer.cornerRadius = progressIndicatorHeight/2.0
-                progressIndicatorForegroundView.layer.cornerRadius = progressIndicatorHeight/2.0
-            } else {
-                progressIndicatorBackgroundView.layer.cornerRadius = 0
-                progressIndicatorForegroundView.layer.cornerRadius = 0
+                progressIndicatorViewCornerRadius = progressIndicatorHeight/2.0
+            } else if (progressIndicatorShape == ProgressIndicatorShape.Triangle) {
+                progressIndicatorViewCornerRadius = progressIndicatorHeight/0.5
             }
+            progressIndicatorBackgroundView.layer.cornerRadius = progressIndicatorViewCornerRadius
+            progressIndicatorForegroundView.layer.cornerRadius = progressIndicatorViewCornerRadius
         }
     }
     
