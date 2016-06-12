@@ -155,6 +155,15 @@ class JKProgressPercentageCounterView: UIView {
         self.addConstraint(NSLayoutConstraint(item: progressIndicatorForegroundView, attribute: .Top, relatedBy: .Equal, toItem: progressIndicatorBackgroundView, attribute: .Top, multiplier: 1.0, constant: 0))
         self.addConstraint(NSLayoutConstraint(item: progressIndicatorForegroundView, attribute: .Bottom, relatedBy: .Equal, toItem: progressIndicatorBackgroundView, attribute: .Bottom, multiplier: 1.0, constant: 0))
         self.addConstraint(progressIndicatorForegroundViewWidthConstraint)
+        
+//        let v = UIView()
+//        v.translatesAutoresizingMaskIntoConstraints = false
+//        v.backgroundColor = UIColor.blueColor()
+//        self.addSubview(v)
+//        let vs = ["v": v]
+//        self.addConstraint(NSLayoutConstraint(item: v, attribute: .CenterX, relatedBy: .Equal, toItem: progressIndicatorBackgroundView, attribute: .CenterX, multiplier: 1.0, constant: 0))
+//        self.addConstraint(NSLayoutConstraint(item: v, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 1))
+//        self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[v]|", options: NSLayoutFormatOptions(rawValue:0), metrics: nil, views: vs))
     }
     
     required init?(coder aDecoder: NSCoder) {

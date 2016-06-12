@@ -12,9 +12,9 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let progressIndicatorView = JKProgressPercentageCounterView(frame: CGRectZero, currentValue: 50, maximumValue: 100, titleDirection: .Right, progressIndicatorHeight: 20)
+        let progressIndicatorView = JKProgressPercentageCounterView(frame: CGRectZero, currentValue: 75, maximumValue: 100, titleDirection: .Right, progressIndicatorHeight: 20)
         progressIndicatorView.translatesAutoresizingMaskIntoConstraints = false
-        progressIndicatorView.progressIndicatorShape = ProgressIndicatorShape.Circle
+        progressIndicatorView.progressIndicatorShape = ProgressIndicatorShape.Flat
         
         progressIndicatorView.updatedLabelValue = "\(progressIndicatorView.originalLabelValue)"
         
