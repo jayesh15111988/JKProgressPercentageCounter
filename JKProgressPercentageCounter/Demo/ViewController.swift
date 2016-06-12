@@ -16,7 +16,7 @@ class ViewController: UIViewController {
         self.title = "Progress Indicator Demo"
         let progressIndicatorView1 = self.progressIndicatorViewWithCurrentValue(75, maximumValue: 100, titleDirection: .Top, shape: .Circle, bgColor: UIColor.redColor())
         let progressIndicatorView2 = self.progressIndicatorViewWithCurrentValue(175, maximumValue: 200, titleDirection: .Left, shape: .Flat, bgColor: UIColor.blueColor())
-        let progressIndicatorView3 = self.progressIndicatorViewWithCurrentValue(1175, maximumValue: 1500, titleDirection: .Bottom, shape: .Triangle, bgColor: UIColor.orangeColor())
+        let progressIndicatorView3 = self.progressIndicatorViewWithCurrentValue(1175, maximumValue: 1500, titleDirection: .Bottom, shape: .Circle, bgColor: UIColor.orangeColor())
         let progressIndicatorView4 = self.progressIndicatorViewWithCurrentValue(10, maximumValue: 80, titleDirection: .Right, shape: .Circle, bgColor: UIColor.yellowColor())
         
         let viewsCollection = [progressIndicatorView1, progressIndicatorView2, progressIndicatorView3, progressIndicatorView4]
@@ -35,6 +35,7 @@ class ViewController: UIViewController {
         }
         
         for (index, individualView) in viewsCollection.enumerate() {
+            individualView.showLegendView = index % 2 == 0
             individualView.showLabelWithDuration(NSTimeInterval(index + 1), labelFormatterClosure: {[weak individualView] labelValueInt, labelValueString in
                 individualView!.updatedLabelValue = "\(labelValueString)%"
                 }, completionClosure: {

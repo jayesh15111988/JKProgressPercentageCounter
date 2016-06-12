@@ -17,6 +17,5 @@ enum TitleDirection: Int {
 
 enum ProgressIndicatorShape: Int {
     case Circle
-    case Flat
-    case Triangle
+    case Flat    
 }

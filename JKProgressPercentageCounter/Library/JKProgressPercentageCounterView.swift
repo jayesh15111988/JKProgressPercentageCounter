@@ -17,6 +17,7 @@ class JKProgressPercentageCounterView: UIView {
     var progressIndicatorForegroundViewWidthConstraint: NSLayoutConstraint
     let progressIndicatorHeight: CGFloat
     var percentageCounterLabel: UILabel
+    var indicatorLegend: UIView
     var fractionValue: Float
     
     var originalLabelValue: String
@@ -32,8 +33,6 @@ class JKProgressPercentageCounterView: UIView {
             var progressIndicatorViewCornerRadius: CGFloat = 0.0
             if (progressIndicatorShape == ProgressIndicatorShape.Circle) {
                 progressIndicatorViewCornerRadius = progressIndicatorHeight/2.0
-            } else if (progressIndicatorShape == ProgressIndicatorShape.Triangle) {
-                progressIndicatorViewCornerRadius = progressIndicatorHeight * 2
             }
             progressIndicatorBackgroundView.layer.cornerRadius = progressIndicatorViewCornerRadius
             progressIndicatorForegroundView.layer.cornerRadius = progressIndicatorViewCornerRadius
@@ -79,10 +78,23 @@ class JKProgressPercentageCounterView: UIView {
         }
     }
     
+    var legendBackgroundColor: UIColor {
+        didSet {
+            indicatorLegend.backgroundColor = legendBackgroundColor
+        }
+    }
+    
+    var showLegendView: Bool {
+        didSet {
+            indicatorLegend.hidden = !showLegendView
+        }
+    }
+    
     init(frame: CGRect, currentValue: Int, maximumValue: Int, titleDirection: TitleDirection, progressIndicatorHeight: CGFloat) {
         
         fractionValue = Float(currentValue)/Float(maximumValue)
         let fractionInPercentage = String(format: "%d", Int(fractionValue * 100.0))
+        let legendDimension = progressIndicatorHeight/4.0
         
         self.titleDirection = titleDirection
         self.currentValue = currentValue
@@ -93,6 +105,8 @@ class JKProgressPercentageCounterView: UIView {
         self.progressIndicatorBorderWidth = 0.5
         self.originalLabelValue = fractionInPercentage
         self.updatedLabelValue = fractionInPercentage
+        self.legendBackgroundColor = UIColor.purpleColor()
+        self.showLegendView = false
         
         percentageCounterLabel = UILabel()
         percentageCounterLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -104,6 +118,14 @@ class JKProgressPercentageCounterView: UIView {
         labelBackgroundColor = UIColor .whiteColor()
         labelTextColor = UIColor.blackColor()
         progressIndicatorBackgroundColor = UIColor.redColor()
+        
+        indicatorLegend = UIView()
+        indicatorLegend.translatesAutoresizingMaskIntoConstraints = false
+        indicatorLegend.layer.cornerRadius = legendDimension/2.0
+        indicatorLegend.backgroundColor = legendBackgroundColor
+        indicatorLegend.layer.borderWidth = progressIndicatorBorderWidth
+        indicatorLegend.layer.borderColor = progressIndicatorBorderColor.CGColor
+        indicatorLegend.hidden = !showLegendView
         
         progressIndicatorBackgroundView = UIView()
         progressIndicatorBackgroundView.translatesAutoresizingMaskIntoConstraints = false
@@ -129,8 +151,9 @@ class JKProgressPercentageCounterView: UIView {
         self.addSubview(progressIndicatorBackgroundView)
         self.addSubview(progressIndicatorForegroundView)
         self.addSubview(percentageCounterLabel)
+        self.addSubview(indicatorLegend)
         
-        let views = ["progressIndicatorBackgroundView": progressIndicatorBackgroundView, "progressIndicatorForegroundView": progressIndicatorForegroundView, "percentageCounterLabel": percentageCounterLabel]
+        let views = ["progressIndicatorBackgroundView": progressIndicatorBackgroundView, "progressIndicatorForegroundView": progressIndicatorForegroundView, "percentageCounterLabel": percentageCounterLabel, "indicatorLegend": indicatorLegend]
         let metrics = ["progressIndicatorHeight": progressIndicatorHeight]
         
         if (titleDirection == TitleDirection.Top) {
@@ -161,6 +184,12 @@ class JKProgressPercentageCounterView: UIView {
         self.addConstraint(NSLayoutConstraint(item: progressIndicatorForegroundView, attribute: .Top, relatedBy: .Equal, toItem: progressIndicatorBackgroundView, attribute: .Top, multiplier: 1.0, constant: 0))
         self.addConstraint(NSLayoutConstraint(item: progressIndicatorForegroundView, attribute: .Bottom, relatedBy: .Equal, toItem: progressIndicatorBackgroundView, attribute: .Bottom, multiplier: 1.0, constant: 0))
         self.addConstraint(progressIndicatorForegroundViewWidthConstraint)
+        
+        // Constraints for legend indicator view.
+        self.addConstraint(NSLayoutConstraint(item: indicatorLegend, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: legendDimension))
+        self.addConstraint(NSLayoutConstraint(item: indicatorLegend, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: legendDimension))
+        self.addConstraint(NSLayoutConstraint(item: indicatorLegend, attribute: .CenterY, relatedBy: .Equal, toItem: progressIndicatorForegroundView, attribute: .CenterY, multiplier: 1.0, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: indicatorLegend, attribute: .Trailing, relatedBy: .Equal, toItem: progressIndicatorForegroundView, attribute: .Trailing, multiplier: 1.0, constant: legendDimension/2.0))
     }
     
     required init?(coder aDecoder: NSCoder) {
