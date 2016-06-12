@@ -23,7 +23,6 @@ class JKProgressPercentageCounterView: UIView {
     var updatedLabelValue: String {
         didSet {
             percentageCounterLabel.text = updatedLabelValue
-            originalLabelValue = updatedLabelValue
         }
     }
     
@@ -132,18 +131,24 @@ class JKProgressPercentageCounterView: UIView {
             self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[percentageCounterLabel(>=0)]-(>=5)-[progressIndicatorBackgroundView(progressIndicatorHeight)]-|", options: NSLayoutFormatOptions(rawValue:0), metrics: metrics, views: views))
             self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[percentageCounterLabel]-|", options: NSLayoutFormatOptions(rawValue:0), metrics: metrics, views: views))
             self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[progressIndicatorBackgroundView]-|", options: NSLayoutFormatOptions(rawValue:0), metrics: metrics, views: views))
+            
         } else if (titleDirection == TitleDirection.Left) {
             self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[percentageCounterLabel(>=0)]-[progressIndicatorBackgroundView]-|", options: NSLayoutFormatOptions(rawValue:0), metrics: metrics, views: views))
             self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[percentageCounterLabel]-|", options: NSLayoutFormatOptions(rawValue:0), metrics: metrics, views: views))
-            self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[progressIndicatorBackgroundView]-|", options: NSLayoutFormatOptions(rawValue:0), metrics: metrics, views: views))
+            self.addConstraint(NSLayoutConstraint(item: progressIndicatorBackgroundView, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1.0, constant: 0))
+            self.addConstraint(NSLayoutConstraint(item: progressIndicatorBackgroundView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: progressIndicatorHeight))
+            
         } else if (titleDirection == TitleDirection.Bottom) {
             self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[progressIndicatorBackgroundView(progressIndicatorHeight)]-(>=5)-[percentageCounterLabel(>=0)]-|", options: NSLayoutFormatOptions(rawValue:0), metrics: metrics, views: views))
             self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[percentageCounterLabel]-|", options: NSLayoutFormatOptions(rawValue:0), metrics: metrics, views: views))
             self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[progressIndicatorBackgroundView]-|", options: NSLayoutFormatOptions(rawValue:0), metrics: metrics, views: views))
+            
         } else if (titleDirection == TitleDirection.Right) {
             self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[progressIndicatorBackgroundView]-[percentageCounterLabel(>=0)]-|", options: NSLayoutFormatOptions(rawValue:0), metrics: metrics, views: views))
             self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[percentageCounterLabel]-|", options: NSLayoutFormatOptions(rawValue:0), metrics: metrics, views: views))
-            self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[progressIndicatorBackgroundView]-|", options: NSLayoutFormatOptions(rawValue:0), metrics: metrics, views: views))
+            self.addConstraint(NSLayoutConstraint(item: progressIndicatorBackgroundView, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1.0, constant: 0))
+            self.addConstraint(NSLayoutConstraint(item: progressIndicatorBackgroundView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: progressIndicatorHeight))
+            
         }
         
         self.addConstraint(NSLayoutConstraint(item: progressIndicatorForegroundView, attribute: .Leading, relatedBy: .Equal, toItem: progressIndicatorBackgroundView, attribute: .Leading, multiplier: 1.0, constant: 0))
