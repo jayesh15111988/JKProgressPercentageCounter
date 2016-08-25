@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "JKProgressPercentageCounter"
-  s.version          = "0.1"
+  s.version          = "0.2"
   s.summary          = "A animating label counter to show completion progress and total percentages with interactive animation"  
   s.homepage         = "https://github.com/jayesh15111988/JKProgressPercentageCounter"
   s.license          = 'MIT'

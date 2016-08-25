@@ -8,14 +8,14 @@
 
 import Foundation
 
-enum TitleDirection: Int {
+public enum TitleDirection: Int {
     case Top
     case Left
     case Bottom
     case Right
 }
 
-enum ProgressIndicatorShape: Int {
+public enum ProgressIndicatorShape: Int {
     case Circle
     case Flat    
 }

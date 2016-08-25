@@ -8,8 +8,8 @@
 
 import UIKit
 
-class JKProgressPercentageCounterView: UIView {
-    let titleDirection: TitleDirection
+public class JKProgressPercentageCounterView: UIView {
+    public let titleDirection: TitleDirection
     let maximumValue: Int
     let currentValue: Int
     var progressIndicatorForegroundView: UIView
@@ -22,13 +22,13 @@ class JKProgressPercentageCounterView: UIView {
     
     var originalLabelValue: String
     
-    var updatedLabelValue: String {
+    public var updatedLabelValue: String {
         didSet {
             percentageCounterLabel.text = updatedLabelValue
         }
     }
     
-    var progressIndicatorShape: ProgressIndicatorShape {
+    public var progressIndicatorShape: ProgressIndicatorShape {
         didSet {
             var progressIndicatorViewCornerRadius: CGFloat = 0.0
             if (progressIndicatorShape == ProgressIndicatorShape.Circle) {
@@ -40,57 +40,57 @@ class JKProgressPercentageCounterView: UIView {
     }
     
     
-    var labelFont: UIFont {
+    public var labelFont: UIFont {
         didSet {
             percentageCounterLabel.font = labelFont
         }
     }
     
-    var labelBackgroundColor: UIColor {
+    public var labelBackgroundColor: UIColor {
         didSet {
             percentageCounterLabel.backgroundColor = labelBackgroundColor
         }
     }
     
-    var labelTextColor: UIColor {
+    public var labelTextColor: UIColor {
         didSet {
             percentageCounterLabel.textColor = labelTextColor
         }
     }
     
-    var progressIndicatorBackgroundColor: UIColor {
+    public var progressIndicatorBackgroundColor: UIColor {
         didSet {
             progressIndicatorForegroundView.backgroundColor = progressIndicatorBackgroundColor
         }
     }
     
-    var progressIndicatorBorderColor: UIColor {
+    public var progressIndicatorBorderColor: UIColor {
         didSet {
             progressIndicatorBackgroundView.layer.borderColor = progressIndicatorBorderColor.CGColor
             progressIndicatorForegroundView.layer.borderColor = progressIndicatorBorderColor.CGColor
         }
     }
     
-    var progressIndicatorBorderWidth: CGFloat {
+    public var progressIndicatorBorderWidth: CGFloat {
         didSet {
             progressIndicatorBackgroundView.layer.borderWidth = progressIndicatorBorderWidth
             progressIndicatorForegroundView.layer.borderWidth = progressIndicatorBorderWidth
         }
     }
     
-    var legendBackgroundColor: UIColor {
+    public var legendBackgroundColor: UIColor {
         didSet {
             indicatorLegend.backgroundColor = legendBackgroundColor
         }
     }
     
-    var showLegendView: Bool {
+    public var showLegendView: Bool {
         didSet {
             indicatorLegend.hidden = !showLegendView
         }
     }
     
-    init(frame: CGRect, currentValue: Int, maximumValue: Int, titleDirection: TitleDirection, progressIndicatorHeight: CGFloat) {
+    public init(frame: CGRect, currentValue: Int, maximumValue: Int, titleDirection: TitleDirection, progressIndicatorHeight: CGFloat) {
         
         fractionValue = Float(currentValue)/Float(maximumValue)
         let fractionInPercentage = String(format: "%d", Int(fractionValue * 100.0))
@@ -192,11 +192,11 @@ class JKProgressPercentageCounterView: UIView {
         self.addConstraint(NSLayoutConstraint(item: indicatorLegend, attribute: .Trailing, relatedBy: .Equal, toItem: progressIndicatorForegroundView, attribute: .Trailing, multiplier: 1.0, constant: legendDimension/2.0))
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init(currentValue: Int, maximumValue: Int) {
+    public convenience init(currentValue: Int, maximumValue: Int) {
         self.init(frame: CGRectZero, currentValue: currentValue, maximumValue: maximumValue, titleDirection: .Top, progressIndicatorHeight: 20)
     }
     
@@ -205,7 +205,7 @@ class JKProgressPercentageCounterView: UIView {
         return String(format: "%d", Int(fractionValue * 100.0))
     }
     
-    func showLabelWithDuration(animationDuration: NSTimeInterval, labelFormatterClosure: ((Int, String) -> ())?, completionClosure: (() -> Void)?) {
+    public func showLabelWithDuration(animationDuration: NSTimeInterval, labelFormatterClosure: ((Int, String) -> ())?, completionClosure: (() -> Void)?) {
         
         self.removeConstraint(self.progressIndicatorForegroundViewWidthConstraint)
         self.layoutIfNeeded()
@@ -231,7 +231,5 @@ class JKProgressPercentageCounterView: UIView {
             }
             completionClosure?()
         };
-
-    }
-    
+    }    
 }
