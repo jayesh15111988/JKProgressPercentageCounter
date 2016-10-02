@@ -88,7 +88,7 @@ on or off. Defaults to `false`
 * animationDuration - This is the animation duration for both progress indicator and label values counter.
 
 _You can include this library in your iOS project by adding following line to the podfile_ <br/>
- `pod 'JKProgressPercentageCounter', :git => 'git@github.com:jayesh15111988/JKProgressPercentageCounter.git'` and running `pod update` thereafter
+ `pod 'JKProgressPercentageCounter', :git => 'https://github.com/jayesh15111988/JKProgressPercentageCounter.git'` and running `pod update` thereafter
 
 
 > For convenience, I have added a demo along with this library. You can get hang of extra parameters and other ways to customize the appearance of animating percentage
