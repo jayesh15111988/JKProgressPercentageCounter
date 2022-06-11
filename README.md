@@ -5,14 +5,14 @@
 
 [ProgressPercentageCounter]: https://github.com/jayesh15111988/JKProgressPercentageCounter/blob/master/Progress_Indicator_Demo.gif "A demo for animated progress percentage counter label"
 
-###Documentation : 
+### Documentation : 
 
 _The idea about making this library came to my mind while working on one of work projects. While partially working on it I realized how
 difficult it could be to make such animation. Code itself is not challenging to write, but I faced some challenges in terms of code
 architecture and customization. Hope I have added enough customizable properties to this library. If not, do let me know or 
 I will appreciate if you could send a pull request._
 
-####Initializing Percentage counter
+#### Initializing Percentage counter
 
 You can initialize progress percentage counter with initializer
 
@@ -24,7 +24,7 @@ If you want to use default library provided parameters, you can also use a conve
 
 There are tow ways you can show the percentage counter label.
 
-####With animation
+#### With animation
 
 ```
 individualView.showLabelWithDuration(<animation_duration>, labelFormatterClosure: {labelValueInt, labelValueString in
@@ -34,13 +34,13 @@ individualView.showLabelWithDuration(<animation_duration>, labelFormatterClosure
             })
 ```
 
-####If you don't want to show the animation, you can simple avoid the last line of code. Create an instance of `JKProgressPercentageCounterView`
+#### If you don't want to show the animation, you can simple avoid the last line of code. Create an instance of `JKProgressPercentageCounterView`
 and add it to the view.
 
 __Note: It is highly recommended that you use autolayout with this library. `autoresizingMask` is turned off for all the subviews
 of this library. You can also pass the manual `CGRect` in the initializer. It's just that view will not play nice on variable sized devices__
 
-###You can customize following properties. Some of them are set in the initializer. There are two types of initializers as follows. 
+### You can customize following properties. Some of them are set in the initializer. There are two types of initializers as follows. 
 One if a regular one another one is convenience initializer which takes care of setting up default values for unspecified parameters.
 
 __Initializer__
@@ -49,7 +49,7 @@ __Initializer__
 __Convenience Initializer__
 `convenience init(currentValue: Int, maximumValue: Int)`
 
-###Customizable paramters and default values
+### Customizable paramters and default values
 
 * `titleDirection` - Specifies where the percentage title label lies with respect to progress indicator view. Default to top position
 * `currentValue` - Value to show on completion label. Percentage is calculated from maximum value
